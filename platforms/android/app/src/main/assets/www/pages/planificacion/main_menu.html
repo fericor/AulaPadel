@@ -1,0 +1,78 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin-top:52px;">
+                    <i class="f7-icons ap_img_item">data</i>
+                </div>
+            </div>
+        </div>         
+
+    	<div class="navbar">
+        	<div class="navbar-inner sliding">
+          		<div class="left">
+            		<a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+          		</div>
+                <div class="title center"> <a href="/"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+        	</div>
+      	</div>
+
+        <div class="page-content" style="padding:10px;padding-top:150px;">
+            <div class="card">
+                <div class="card-content card-content-padding">
+                    <h1 class="text-align-center h1" style="color:#383838;margin: 0px !important;">Planificación</h1>
+                </div>
+            </div>
+
+            <div class="separacion"></div>
+
+            <div id="divMenuPlanificacion"></div>
+
+            <div style="margin-top: 50px;"></div>
+
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        on: { pageInit: function(e, page) { loadMenu(); } }
+    }
+
+    function loadMenu(){
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"planificacion/0/0",
+            dataType: 'json',
+            //data: { email: 0 },
+            success: function (data){
+                $.each(data.PLANIFICACION, function(index, item) {
+                    HTML += "<a href=\"/MAIN-NIVELES/"+ item.id +"/0/\" data-view=\".view-main\" class=\"item-link\" onclick=\"localStorage.setItem('LS_TXT_PLANIFICACION', '"+ item.titulo +"');\">";
+                    HTML += "<div class=\"row\">";
+                    HTML += "<div class=\"col caja box-6\">";
+                    HTML += "<div class=\"row\">";
+                    HTML += "<div class=\"col-50\">";
+                    HTML += "<img src=\"images/planificacion/"+ item.id +".jpg\">";
+                    HTML += "</div>";
+                    HTML += "<div class=\"col-50\" style=\"padding-right:10px;\">";
+                    HTML += "<h2 style=\"margin-bottom:0px;\">"+ item.titulo +"</h2>";
+                    HTML += "<p style=\"margin:0px;\">"+ item.descripcion +"</p>";
+                    HTML += "</div>";
+                    HTML += "</div>";
+                    HTML += "</div>";
+                    HTML += "</div>";
+                    HTML += "</a>";
+                    HTML += "<div style=\"margin-top: 20px;\"></div>";
+                });   
+                
+                $("#divMenuPlanificacion").html(HTML);
+            }
+        });                  
+    }
+</script>

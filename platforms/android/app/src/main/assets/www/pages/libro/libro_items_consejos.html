@@ -1,0 +1,115 @@
+<template>
+    <div data-name="ap_libro_items_page" class="page">  
+
+        <div class="ap_fondo_libro">
+            <div class="row">
+                <div class="col text-align-center">
+                    <div class="ap_logo-v_libro"> <img src="images/logos/logo-v.png"> </div>
+                </div>
+            </div>
+        </div>
+          
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" class="link back"> <i class="f7-icons">arrow_left</i> </a>
+                </div>
+                <div class="title center"> <a href="/"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+                <div class="subnavbar">
+                    <!-- Searchbar with auto init -->
+                    <form class="searchbar">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                            <input type="search" placeholder="Buscar">
+                            <i class="searchbar-icon"></i>
+                            <span class="input-clear-button"></span>
+                            </div>
+                            <span class="searchbar-disable-button"><i class="f7-icons">close</i></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+
+        <div class="page-content padding100" style="padding-top:200px;padding-bottom:70px;">
+            
+
+            <div class="card">
+                <div class="card-header" tkey="t_tips">Consejos</div>
+                <div class="card-content">
+                    <!-- Searchbar backdrop -->
+                    <div class="searchbar-backdrop"></div>
+                    <!-- hide-on-search element -->
+                    <div class="block searchbar-hide-on-search"> </div>
+                    <!-- search target list -->
+
+                    <div class="list media-list inset searchbar-found listMenu" style="padding-top:50px;padding-bottom:70px;">
+                        <ul id="indiceVideosItemsConsejos">
+                        
+                        </ul>
+                    </div>
+
+                    <!-- Nothing found message -->
+                    <div class="block searchbar-not-found">
+                        <div class="block-inner">Nothing found</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return { 
+        on: { pageInit: function(e, page) { loadMenusItems(page.route.params.id); } }
+    }
+
+    function loadMenusItems(ID){
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"menuLibrosConsejos/"+ID,
+            dataType: 'json',
+            success: function (data){
+                if(data.menuLibros.length === 0){
+                    $HTML = '<p><h1><i class="f7-icons">info_round</i> Sin datos</h1></p>';                       
+                }else{
+                    $.each(data.menuLibros, function(index, item) {
+                        //HTML += "<li class=\"popup-open\" data-popup=\"#vLibro-popup\" onclick=\"playVideo(this, '"+ item.v_url +"', "+ ID +");\">";
+                        HTML += "<li onclick=\"validateRolUserMod('mod_video_libro', this, '"+ item.v_url +"', '"+ item.v_id +"', 0);\">";
+                        HTML += '<div class="item-content">';
+                        HTML += '<div class="item-media"><img src="images/logos/logo512.jpg" width="40"></div>';
+                        HTML += '<div class="item-inner">';
+                        HTML += '<div class="item-title-row">';
+                        HTML += '<div class="item-title videoTitulo" style="font-size: 12px;">'+ item.v_titulo +'</div>';
+                        HTML += '</div>';
+                        HTML += '<div class="item-subtitle" style="font-size: 10px;">'+ item.v_descripcion +'</div>';
+                        HTML += '</div>';       
+                        HTML += '<div class="item-icon"><i class="icon f7-icons size30" style="line-height: 50px;">play_round_fill</i></div>';    
+                        HTML += '</div>';     
+                        HTML += '</li>';
+                    }); 
+                }
+                
+                $("#indiceVideosItemsConsejos").html(HTML);
+
+                var searchbar = app.searchbar.create({
+                    el: '.searchbar',
+                    searchContainer: '.list',
+                    searchIn: '.item-title',
+                    on: {
+                        search(sb, query, previousQuery) {
+                            console.log(query, previousQuery);
+                        }
+                    }
+                });
+
+            }
+        });                             
+    }
+
+</script>

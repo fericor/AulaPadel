@@ -1,0 +1,122 @@
+<template>
+    <div data-name="ap_contacto_page" class="page"> 
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin-top:52px;">
+                    <i class="f7-icons ap_img_item">at</i>
+                </div>
+            </div>
+        </div>         
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                        <!--<span class="ios-only">Atras</span>-->
+                    </a>
+                </div>
+                <div class="title center"> <a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding-top:150px;padding-left: 5%;padding-right: 5%;">
+            <div class="card" style="padding-bottom:25px;">
+                <div class="card-content card-content-padding">
+                    <p>Para ser usuario <b>Platinium</b> ingresa tus datos y en breve contactaremos para ofrecerte un sistema personalizado</p>
+                </div>
+            </div>
+
+            <div class="card" style="padding-bottom:25px;">
+                <div class="card-content card-content-padding">
+                    <form id="frmApContacto">
+                        <div class="list">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Nombre completo</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" id="nombre" name="nombre" placeholder="Nombre Apellidos">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Email</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" id="email" name="email" placeholder="example@mail.com">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Teléfono</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" id="telefono" name="telefono" placeholder="000000000">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                      <div class="item-title item-label">Información</div>
+                                      <div class="item-input-wrap">
+                                        <textarea class="resizable" id="informacion" name="informacion"></textarea>
+                                        <span class="input-clear-button"></span>
+                                      </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div style="text-align:center;top: -40px;position: relative;">
+                <a href="#" class="tutorial-signup-btn" @click="sendContacto">Pedir informacion</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        methods: {
+            sendContacto: function () {
+                app.preloader.show(); 
+                
+                var NOMBRE      = $('#frmApContacto [name="nombre"]').val();
+                var EMAIL       = $('#frmApContacto [name="email"]').val();
+                var TELEFONO    = $('#frmApContacto [name="telefono"]').val();
+                var INFORMACION = $('#frmApContacto [name="informacion"]').val();
+
+                $.ajax({
+                    type: "POST",
+                    headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+                    url: URL_SERVER+"contacto",
+                    dataType: 'json',
+                    data: { nombre: NOMBRE, email: EMAIL, telefono: TELEFONO, informacion: INFORMACION },
+                    success: function (data){
+                        app.preloader.hide();
+                        app.dialog.alert(data.message);     
+                        $("#frmApContacto").get(0).reset();                    
+                    }
+                });                 
+            }
+        },
+
+        data: function () {
+            //return {AP_ID_CONSEJO: localStorage.getItem("LS_IDCONSEJO")}
+        },
+        on: { pageInit: function(e, page) { sendContactoa(page.route.params.txt); } }
+    }
+
+    function sendContactoa(TITULO){
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+                            
+    }
+
+</script>

@@ -1,0 +1,101 @@
+<template>
+    <div data-name="ap_libro_page" class="page">  
+
+        <div class="ap_fondo_libro">
+            <div class="row">
+                <div class="col text-align-center">
+                    <div class="ap_logo-v_libro"> <img src="images/logos/logo-v.png"> </div>
+                </div>
+            </div>
+        </div>
+          
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a href="#" class="link back"> <i class="f7-icons">arrow_left</i> </a>
+                </div>
+                <div class="title center"> <img src="images/logos/logo-h.png" class="ap_logo-h"> </div>
+                <div class="subnavbar">
+                    <form class="searchbar apSearchIndiceLibro">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                            <input type="search" placeholder="Buscar">
+                            <i class="searchbar-icon"></i>
+                            <span class="input-clear-button"></span>
+                            </div>
+                            <span class="searchbar-disable-button"><i class="f7-icons">close</i></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+
+        <div class="page-content padding100" style="padding-top:250px;padding-bottom:70px;">
+            <div class="searchbar-backdrop"></div>
+            <div class="block searchbar-hide-on-search"> </div>
+            <div class="list inset apListSearchIndiceLibro searchbar-found">
+                <ul id="indiceVideos">
+                
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return {
+        beforeCreate() {
+            loadMenus();
+        },
+        methods: {
+            initLibro: function () {
+                          
+            }
+        }
+    }
+
+    function loadMenus(){
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"menuLibros",
+            dataType: 'json',
+            success: function (data){
+                $.each(data.menuLibros, function(index, item) {
+                    HTML += "<li>";
+                    HTML += "<a href=\"/VIDEO-LIBRO-ITEMS/"+ item.v_id +"/\" data-view=\".view-main\" class=\"item-link\">";
+                    HTML += '<div class="item-content">';
+                    HTML += '<div class="item-media"><img src="images/logos/logo512.jpg" width="40"></div>';
+                    HTML += '<div class="item-inner">';
+                    HTML += '<div class="item-title-row">';
+                    HTML += '<div class="item-title videoTitulo apItemSearchIndiceLibro" style="font-size: 12px;">'+ item.v_titulo +'</div>';
+                    HTML += '</div>';
+                    HTML += '</div>';         
+                    HTML += '</div>';     
+                    HTML += '</a>';     
+                    HTML += '</li>';
+                });   
+                
+                $("#indiceVideos").html(HTML);
+
+                    // create searchbar
+                var searchbar = app.searchbar.create({
+                    el: '.searchbar',
+                    searchContainer: '.list',
+                    searchIn: '.item-title',
+                    on: {
+                        search(sb, query, previousQuery) {
+                            console.log(query, previousQuery);
+                        }
+                    }
+                });
+
+            }
+        });                             
+    }
+
+</script>

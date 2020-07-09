@@ -1,0 +1,282 @@
+/* Created by http://www.timo-ernst.net | License: MIT http://en.wikipedia.org/wiki/MIT_License */
+
+html {
+    width: 99.6%;
+    height: 100%
+}
+body {
+    width: 100%;
+    height: 100%;
+    color: #333
+}
+#content {
+    width: 100%;
+    height: 100%
+}
+.hcal {
+    font-size: 20px;
+    font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, arial, sans-serif;
+    background: #fff;
+    position: relative
+}
+.hcal,
+.hcal>.hcal-body,
+.hcal>.hcal-body>.hcal-body-row,
+.hcal>.hcal-header {width: 100%}
+.hcal .hcal-header {
+    position: fixed;
+    margin-top: -61px;
+    z-index: 1;
+    background-color: #F8F8F8;
+    height: 30px;
+    padding-top: 30px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.hcal .hcal-header-days {font-size: 12px}
+.hcal .hcal-header-dates,
+.hcal .hcal-header-days {
+    display: -webkit-flex;
+    display: flex
+}
+.hcal .hcal-header-dates {margin-top: 3px}
+.hcal .hcal-header-date {color: #333}
+.hcal .hcal-header-date,
+.hcal .hcal-header-day {
+    width: 15%;
+    text-align: center
+}
+.hcal .hcal-header-date-inner {
+    display: inline-block;
+    border-radius: 200px;
+    background: 0 0;
+    width: 38px;
+    height: 32px;
+    text-align: center;
+    padding-top: 6px
+}
+.hcal .hcal-header-date-inner.active {
+    background: #FF640A;
+    color: #fff
+}
+.hcal .hcal-header-today {
+    margin-top: -10px;
+    font-size: 15px
+}
+.hcal-body .hcal-body-row {height: 50px}
+.hcal-body .hcal-body-row-time {
+    margin-top: 5px;
+    margin-left: 30px;
+    font-size: 12px
+}
+.hcal-body .hcal-body-row-hr {
+    margin-top: -8px;
+    margin-left: 70px;
+    border: 0;
+    border-bottom: 1px solid #ddd
+}
+.hcal .hcal-body-row-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgba(100, 100, 100, .6);
+    opacity: .7;
+    right: 0;
+    position: absolute;
+    left: 70px;
+    margin-top: 8px;
+    border-left: 2px solid rgba(100, 100, 100, 1);
+    height: 55px
+}
+.hcal .hcal-body-row-item .hcal-body-row-item-headline,
+.hcal .hcal-body-row-item .hcal-body-row-item-text {
+    color: rgba(0, 0, 0, .8);
+    margin-left: 5px
+}
+.hcal .hcal-body-row-item .hcal-body-row-item-headline {
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 0;
+    line-height: 16px;
+    padding-right: 5px;
+    letter-spacing: -.75px;
+    font-family: 'Helvetica Neue', Helvetica, arial, sans-serif
+}
+.hcal .hcal-body-row-item .hcal-body-row-item-headline * {font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, arial, sans-serif}
+.hcal .hcal-body-row-item .hcal-body-row-item-text {
+    font-size: 13px;
+    line-height: 17px;
+    height: 100%;
+    bottom: 0;
+    top: 0;
+    margin-top: 2px;
+    padding-right: 5px
+}
+.hcal .hcal-body-row-item .hcal-item-nr {
+    font-weight: 400;
+    letter-spacing: normal
+}
+.hcal .hcal-body-item-color01 {
+    border-color: rgb(255, 59, 48);
+    background-color: rgba(255, 59, 48, .6);
+}
+.hcal .hcal-body-item-color02 {
+    border-color: rgba(76, 217, 100);
+    background-color: rgba(76, 217, 100, .6);
+}
+.hcal .hcal-body-item-color03 {
+    border-color: rgba(33, 150, 243);
+    background-color: rgba(33, 150, 243, .6);
+}
+.hcal .hcal-body-item-color04 {
+    border-color: rgba(255, 45, 85);
+    background-color: rgba(255, 45, 85, .6);
+}
+.hcal .hcal-body-item-color05 {
+    border-color: rgba(255, 204, 0);
+    background-color: rgba(255, 204, 0, .6);
+}
+.hcal .hcal-body-item-color06 {
+    border-color: rgba(255, 149, 0);
+    background-color: rgba(255, 149, 0, .6);
+}
+.hcal .hcal-body-item-color07 {
+    border-color: rgba(156, 39, 176);
+    background-color: rgba(156, 39, 176, .6);
+}
+.hcal .hcal-body-item-color08 {
+    border-color: rgba(103, 58, 183);
+    background-color: rgba(103, 58, 183, .6);
+}
+.hcal .hcal-body-item-color09 {
+    border-color: rgba(0,150,136);
+    background-color: rgba(0,150,136, .9);
+}
+.hcal .hcal-body-item-color010 {
+    border-color: rgba(205,220,57);
+    background-color: rgba(205,220,57, .9);
+}
+.hcal .hcal-body-item-color011 {
+    border-color: rgba(255,107,34);
+    background-color: rgba(255,107,34, .9);
+}
+.hcal .hcal-body-item-color012 {
+    border-color: rgba(142,142,147);
+    background-color: rgba(142,142,147, .9);
+}
+.hcal .hcal-body-item-color013 {
+    border-color: rgba(255,255,255);
+    background-color: rgba(255,255,255, .9);
+}
+.hcal .hcal-body-item-color014 {
+    border-color: rgba(0,0,0);
+    background-color: rgba(0,0,0, .9);
+}
+.hcal .hcal-body-item-color015 {
+    border-color: rgba(90,200,250);
+    background-color: rgba(90,200,250, .9);
+}
+
+
+
+.hcal .hcal-duration-1h {height: 55px}
+.hcal .hcal-duration-2h {height: 110px}
+.hcal .hcal-duration-3h {height: 165px}
+.hcal .hcal-duration-4h {height: 220px}
+.hcal .hcal-duration-5h {height: 275px}
+.hcal .hcal-duration-6h {height: 330px}
+.hcal .hcal-duration-7h {height: 385px}
+.hcal .hcal-duration-8h {height: 440px}
+.hcal .hcal-duration-9h {height: 495px}
+.hcal .hcal-duration-10h {height: 550px}
+.hcal .hcal-duration-11h {height: 605px}
+.hcal .hcal-duration-12h {height: 660px}
+.hcal .hcal-duration-13h {height: 715px}
+.hcal .hcal-duration-14h {height: 770px}
+.hcal .hcal-duration-15h {height: 825px}
+.hcal .hcal-duration-16h {height: 880px}
+.hcal .hcal-duration-17h {height: 935px}
+.hcal .hcal-duration-18h {height: 990px}
+.hcal .hcal-duration-19h {height: 1045px}
+.hcal .hcal-duration-20h {height: 1100px}
+.hcal .hcal-duration-21h {height: 1155px}
+.hcal .hcal-duration-22h {height: 1210px}
+.hcal .hcal-duration-23h {height: 1265px}
+.hcal .hcal-duration-24h {height: 1320px}
+
+/* COLORES */
+.color01 { /* ROJO */border-left: 5px solid rgb(255,59,48) !important;}
+.colorB1 { /* ROJO */
+    background-color: rgba(255,59,48, .9) !important;
+    color: #fff !important;
+}
+.color02 { /* VERDE */ border-left: 5px solid rgba(76,217,100) !important;}
+.colorB2 { /* VERDE */
+    background-color: rgba(76,217,100, .9) !important;
+    color: #fff !important;
+}
+.color03 { /* AZUL */ border-left: 5px solid rgba(33,150,243) !important;
+}
+.colorB3 { /* AZUL */
+    background-color: rgba(33,150,243, .9) !important;
+    color: #fff !important;
+}
+.color04 { /* ROSADO */ border-left: 5px solid rgba(255,45,85) !important;}
+.colorB4 { /* ROSADO */
+    background-color: rgba(255,45,85, .9) !important;
+    color: #fff !important;
+}
+.color05 { /* AMARILLO */ border-left: 5px solid rgba(255,204,0) !important; }
+.colorB5 { /* AMARILLO */
+    background-color: rgba(255,204,0, .9) !important;
+    color: #fff !important;
+}
+.color06 { /* NARANJA */ border-left: 5px solid rgba(255,149,0) !important; }
+.colorB6 { /* NARANJA */
+    background-color: rgba(255,149,0, .9) !important;
+    color: #fff !important;
+}
+.color07 { /* PURPURA */ border-left: 5px solid rgba(156,39,176) !important; }
+.colorB7 { /* PURPURA */
+    background-color: rgba(156,39,176, .9) !important;
+    color: #fff !important;
+}
+.color08 { /* PURPURA FUERTE */ border-left: 5px solid  rgba(103,58,183) !important; }
+.colorB8 { /* PURPURA FUERTE */
+    background-color: rgba(103,58,183, .9) !important;
+    color: #fff !important;
+}
+.color09 { /* TEAL */ border-left: 5px solid rgba(0,150,136) !important; }
+.colorB9 { /* TEAL */
+    background-color: rgba(0,150,136, .9) !important;
+    color: #fff !important;
+}
+.color010 { /* LIMA */ border-left: 5px solid rgba(205,220,57) !important; }
+.colorB10 { /* LIMA */
+    background-color: rgba(205,220,57, .9) !important;
+    color: #fff !important;
+}
+.color011 { /* NARANJA FUERTE */ border-left: 5px solid rgba(255,107,34) !important; }
+.colorB11 { /* NARANJA FUERTE */
+    background-color: rgba(255,107,34, .9) !important;
+    color: #fff !important;
+}
+.color012 { /* GRIS */ border-left: 5px solid rgba(142,142,147) !important; }
+.colorB12 { /* GRIS */
+    background-color: rgba(142,142,147, .9) !important;
+    color: #fff !important;
+}
+.color013 { /* BLANCO */ border-left: 5px solid rgba(255,255,255) !important; }
+.colorB13 { /* BLANCO */
+    background-color: rgba(255,255,255, .9) !important;
+    color: #000 !important;
+}
+.color014 { /* NEGRO */ border-left: 5px solid rgba(0,0,0) !important; }
+.colorB14 { /* NEGRO */
+    background-color: rgba(0,0,0, .9) !important;
+    color: #fff !important;
+}
+.color015 { /* AZUL SUAVE */ border-left: 5px solid rgba(90,200,250) !important; }
+.colorB15 { /* AZUL SUAVE */
+    background-color: rgba(90,200,250, .9) !important;
+    color: #fff !important;
+}

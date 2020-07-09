@@ -1,0 +1,209 @@
+<template>
+    <div class="page" id="mainOpenEjercicios">
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin:40px 20px 0px 20px;">
+                    <div class="card">
+                        <div class="card-content card-content-padding">
+                            <h1 id="txtTitulo3" class="text-align-center h1" style="color:#383838;margin: 0px !important;">  </h1>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"> <a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding:0px;padding-top:100px;">
+            <h2 id="txtTrimestre2" class="text-align-center" style="color:#fff;margin-bottom: 0px;"> </h2>
+            <h3 id="txtTrimestre3" style="color:#fff;margin: 0px;padding-bottom: 25px;" data-popover=".popover-planificacion-titulo" class="text-align-center popover-open"> </h3>
+
+            <div class="card accordion-list custom-accordion" style="margin-left: 15%; margin-right: 15%;">
+                <div class="accordion-item">
+                    <div class="accordion-item-toggle card-header">
+                        <i class="icon icon-plus">+</i>
+                        <i class="icon icon-minus">-</i>
+                        <span style="text-align: center;width: 100%;"><h3 style="color:#383838;" tkey="t_structure">ESTRUCTURA</h3></span>
+                    </div>
+                    <div class="accordion-item-content card-content card-content-padding text-align-center">
+                        <div class="block" style="padding:30px;">
+                            <table>
+                                <tr>
+                                    <th width="50">15 min</th>
+                                    <td style="text-align:left;"><i>Entrada en calor</i></td>
+                                </tr>
+                                <tr>
+                                    <th>20 min</th>
+                                    <td style="text-align:left;"><i>Tema principal</i></td>
+                                </tr>
+                                <tr>
+                                    <th>15 min</th>
+                                    <td style="text-align:left;"><i>Practica del TP</i></td>
+                                </tr>
+                                <tr>
+                                    <th>10 min</th>
+                                    <td style="text-align:left;"><i>Vuelta a la calma o ejercicio de distracción</i></td>
+                                </tr>
+                            </table>
+                        </div>                               
+                    </div>
+                </div>
+            </div>
+
+            <div class="separacion"></div>
+
+            <div id="divItemEntrenamiento"> </div>
+
+            <div class="separacion"></div>
+
+        </div>     
+
+        <div class="popover popover-planificacion-titulo">
+            <div class="popover-inner">
+                <div class="card">
+                    <div class="card-content">
+                        <p id="txtCardTitleEjercicio" style="padding:10px;">Información.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return { on: { pageInit: function(e, page) { loadMenu(page.route.params.idc, page.route.params.trimestre, page.route.params.TITLE); } } }
+
+    function recortaDatos(dato,longitud){
+        var respuesta = dato;
+        if(dato.length>longitud){
+        respuesta = dato.substring(0,longitud-3)+"...";
+        }
+        return reemplazar(respuesta);
+    }
+
+    function reemplazar(VALOR){
+        frase = VALOR.replace("100","¿");
+        fraseFinal = frase.replace("101","?");
+        return fraseFinal;
+    }
+
+    function loadMenu(ID, TRIMESTRES, TITLE){   
+        localStorage.setItem('LS_ID_PLANIFICACION_LOAD', ID);
+        localStorage.setItem('LS_TRIMESTRE_PLANIFICACION_LOAD', TRIMESTRES);
+        localStorage.setItem('LS_TITULO_PLANIFICACION_LOAD', TITLE);
+
+        if((ID > 0) && (ID <=40)){ 
+            $("#txtTitulo3").html("Menores : Base"); 
+            $("#txtTrimestre2").html( "Semana "+(ID) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+        if((ID > 40) && (ID <=80)){ 
+            $("#txtTitulo3").html("Menores : Avanzado"); 
+            $("#txtTrimestre2").html( "Semana "+(ID - 40) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+        if((ID > 80) && (ID <=120)){ 
+            $("#txtTitulo3").html("Menores : Competición"); 
+            $("#txtTrimestre2").html( "Semana "+(ID - 80) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+        if((ID > 120) && (ID <=160)){ 
+            $("#txtTitulo3").html("Adultos : Iniciación"); 
+            $("#txtTrimestre2").html( "Semana "+(ID - 120) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+        if((ID > 160) && (ID <=200)){ 
+            $("#txtTitulo3").html("Adultos : Intermedio"); 
+            $("#txtTrimestre2").html( "Semana "+(ID - 160) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+        if((ID > 200) && (ID <=240)){ 
+            $("#txtTitulo3").html("Adultos : Competición"); 
+            $("#txtTrimestre2").html( "Semana "+(ID - 200) );
+            $("#txtTrimestre3").html(recortaDatos(TITLE, 50));
+            $("#txtCardTitleEjercicio").html(TITLE);
+        }
+
+
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML  = "";
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"planificacionItems/"+ID+"/1",
+            dataType: 'json',
+            success: function (data){
+                $.each(data.PLANIFICACIONITEM, function(index, item) {
+                    var IDITEM = item.id;
+                    HTML += '<div class="card">';
+                    HTML += '<div class="card-content card-content-padding">';
+                    HTML += '<b class="ap_card-title ap-accordion" onclick="ap_accordion(this);" style="text-transform:uppercase;">'+ item.tema +'</b>';
+                    HTML += '<div class="ap-panel" id="liItemsDiv'+IDITEM+'">';
+                    
+                        var HTML2 = '';
+                        $.ajax({
+                            type: "GET",
+                            headers: {"Authorization": API_USER},
+                            url: URL_SERVER+"planificacionItems/"+IDITEM+"/3",
+                            dataType: 'json',
+                            success: function (data){
+                                $.each(data.PLANIFICACIONITEM, function(index, item) {
+                                    var IDITEM2 = item.id;
+                                    HTML2 += '<h3 style="text-align:center;text-transform:uppercase;">'+ item.descripcion +'</h3>';
+                                    HTML2 += '<ul id="liItemliItemsDivOtrosDiv'+IDITEM2+'">';
+
+                                    var HTML3 = "";
+                                    $.ajax({
+                                        type: "GET",
+                                        headers: {"Authorization": API_USER},
+                                        url: URL_SERVER+"planificacionItems/"+IDITEM2+"/3",
+                                        dataType: 'json',
+                                        success: function (data){
+                                            $.each(data.PLANIFICACIONITEM, function(index, item) {
+                                                var EYE    = item.lotengo == 0 ? "" : '<i class="f7-icons" style="font-size: 20px;">eye</i>';
+                                                var CREADO = item.creado == 0 ? "" : 'style="font-weight: bold;"';
+                                                HTML3 += "<li class=\"btnOpenEjercicioPlanificacion\">" + EYE +" <a href=\"#\" class=\"item-link\" "+CREADO+" data-edit="+item.edit+" onclick=\"abrir_ejercicio_desde_planificacion('"+item.edit+"', '"+item.idEjercicio+"', '"+item.id+"', '"+item.lotengo+"', '"+item.creado+"');\">"+ item.item + "</a></li>";
+                                            });
+
+                                            $("#liItemliItemsDivOtrosDiv"+IDITEM2).html(HTML3);
+                                        }
+                                    });
+
+                                    HTML2 += '</ul>';
+                                });
+                                $("#liItemsDiv"+IDITEM).html(HTML2);
+                            }
+                        }); 
+
+                    HTML += '</div>';
+                    HTML += '</div>';
+                    HTML += '</div>';
+                    HTML += '<div class="separacion"></div>';
+                });   
+                
+                $("#divItemEntrenamiento").html(HTML);
+            }
+        });   
+    }
+</script>

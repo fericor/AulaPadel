@@ -1,0 +1,199 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin:40px 20px 0px 20px;">
+                    <div class="card">
+                        <div class="card-content card-content-padding">
+                            <h1 id="txtTitulo2" class="text-align-center h1" style="color:#383838;margin: 0px !important;"> </h1>
+                        </div>
+                    </div>   
+                    <h2 id="txtTrimestre" class="text-align-center h2"> </h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"> <a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+                <div class="right">
+                    <!-- Link to toggle sortable -->
+                    <a class="link sortable-toggle" data-sortable=".sortable"> <i class="f7-icons">layers</i> </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding-top:150px;">
+            <div class="card">
+                <div class="card-content card-content-padding">
+                    <div class="list media-list sortable">
+                        <ul id="divMenuPlanificacionNivelesTrimestresSemanas">
+                            
+                        </ul>
+                    </div>
+
+                    <div class="separacion"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        on: { pageInit: function(e, page) { loadMenu(page.route.params.idc, page.route.params.trimestre); } }
+    }
+
+    function reemplazar(VALOR){
+        frase = VALOR.replace("100","¿");
+        fraseFinal = frase.replace("101","?");
+        return fraseFinal;
+    }
+
+    function loadMenu(ID, TRIMESTRES){
+
+        if(ID == 3){ 
+            $("#txtTitulo2").html("Menores : Base"); 
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }
+        if(ID == 4){ 
+            $("#txtTitulo2").html("Menores : Avanzado"); 
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }
+        if(ID == 5){ 
+            $("#txtTitulo2").html("Menores : Competición");
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }
+        if(ID == 6){ 
+            $("#txtTitulo2").html("Adultos : Iniciación");
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }
+        if(ID == 7){ 
+            $("#txtTitulo2").html("Adultos : Intermedio"); 
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }
+        if(ID == 8){ 
+            $("#txtTitulo2").html("Adultos : Competición"); 
+            $("#txtTrimestre").html( TRIMESTRES+" TRIMESTRE");
+        }  
+
+
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+
+        //////////////////////////////////////////
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+            url: URL_SERVER+"tengoAcceso/mod_planificacion",
+            dataType: 'json',
+            success: function (data1){
+                if(data1.tengo_acceso == "SI"){  
+                    if(data1.error_mod == true){
+                        ////////////////////////////////
+                        $.ajax({
+                            type: "GET",
+                            headers: {"Authorization": API_USER},
+                            url: URL_SERVER+"planificacion/"+ID+"/"+TRIMESTRES,
+                            dataType: 'json',
+                            success: function (data){
+                                $.each(data.PLANIFICACION, function(index, item) {
+                                    if(item.lotengo == "1"){
+                                        HTML += "<li data-url=\"/MAIN-SEMANAS-ITEMS/"+item.id+"/"+item.id_semana+"/"+item.descripcion+"/\" onclick=\"abrir_items_planificacion(this); localStorage.setItem('LS_TXT_SEMANA', '"+ item.id_semana +"');\">";
+                                        HTML += '<a href="#" data-view=".view-main" class="item-content">';
+                                        HTML += '<div class="item-media"><i class="f7-icons">bookmark</i></div>';
+                                        HTML += '<div class="item-inner">';
+                                        HTML += '<div class="item-title-row">';
+                                        HTML += '<div class="item-title">SEMANA '+ item.id_semana +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '<div class="item-text">'+ reemplazar(item.descripcion) +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '</a>';
+                                        HTML += '<div class="sortable-handler"></div>';
+                                        HTML += '</li>';
+
+                                    }else{                      
+                                        HTML += "<li onclick=\"app.dialog.alert('"+data1.num_mensaje+"');\">";
+                                        HTML += '<a href="#" data-view=".view-main" class="item-content">';
+                                        HTML += '<div class="item-media"><i class="f7-icons">bookmark</i></div>';
+                                        HTML += '<div class="item-inner">';
+                                        HTML += '<div class="item-title-row">';
+                                        HTML += '<div class="item-title">SEMANA '+ item.id_semana +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '<div class="item-text">'+ reemplazar(item.descripcion) +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '</a>';
+                                        HTML += '<div class="sortable-handler"></div>';
+                                        HTML += '</li>';
+                                        
+                                    }                                  
+                                });   
+                                
+                                $("#divMenuPlanificacionNivelesTrimestresSemanas").html(HTML);
+                            }
+                        }); 
+                        ////////////////////////////////
+                        
+                    }else{ 
+                        ////////////////////////////////
+                        $.ajax({
+                            type: "GET",
+                            headers: {"Authorization": API_USER},
+                            url: URL_SERVER+"planificacion/"+ID+"/"+TRIMESTRES,
+                            dataType: 'json',
+                            success: function (data){
+                                $.each(data.PLANIFICACION, function(index, item) {
+                                    if(item.lotengo == "1"){
+                                        HTML += "<li data-url=\"/MAIN-SEMANAS-ITEMS/"+item.id+"/"+item.id_semana+"/"+item.descripcion+"/\" onclick=\"abrir_items_planificacion(this); localStorage.setItem('LS_TXT_SEMANA', '"+ item.id_semana +"');\">";
+                                        HTML += '<a href="#" data-view=".view-main" class="item-content">';
+                                        HTML += '<div class="item-media"><i class="f7-icons">bookmark</i></div>';
+                                        HTML += '<div class="item-inner">';
+                                        HTML += '<div class="item-title-row">';
+                                        HTML += '<div class="item-title">SEMANA '+ item.id_semana +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '<div class="item-text">'+ reemplazar(item.descripcion) +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '</a>';
+                                        HTML += '<div class="sortable-handler"></div>';
+                                        HTML += '</li>';
+
+                                    }else{                 
+                                        HTML += "<li data-url=\"/MAIN-SEMANAS-ITEMS/"+item.id+"/"+item.id_semana+"/"+item.descripcion+"/\" onclick=\"insertModUser('mod_planificacion', "+item.id_semana+"); abrir_items_planificacion(this); localStorage.setItem('LS_TXT_SEMANA', '"+ item.id_semana +"');\">";
+                                        HTML += '<a href="#" data-view=".view-main" class="item-content">';
+                                        HTML += '<div class="item-media"><i class="f7-icons">bookmark</i></div>';
+                                        HTML += '<div class="item-inner">';
+                                        HTML += '<div class="item-title-row">';
+                                        HTML += '<div class="item-title">SEMANA '+ item.id_semana +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '<div class="item-text">'+ reemplazar(item.descripcion) +'</div>';
+                                        HTML += '</div>';
+                                        HTML += '</a>';
+                                        HTML += '<div class="sortable-handler"></div>';
+                                        HTML += '</li>';
+                                        
+                                    }                                  
+                                });   
+                                
+                                $("#divMenuPlanificacionNivelesTrimestresSemanas").html(HTML);
+                            }
+                        }); 
+                        ////////////////////////////////
+                    }
+
+                }else{
+                    
+                }
+
+                $("#divMenuPlanificacionNivelesTrimestresSemanas").html(HTML);                
+            }
+        });
+          
+        ////////////////////////////////////////////               
+    }
+</script>

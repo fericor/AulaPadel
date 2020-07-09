@@ -1,0 +1,83 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin-top:52px;">
+                    <img class="divUserImgInfo ap_circle" src="images/avatar.png" onerror="this.src='images/logos/logo512.jpg'" alt="Usuario" />
+                </div>
+            </div>
+        </div>         
+
+    	<div class="navbar">
+        	<div class="navbar-inner sliding">
+          		<div class="left">
+            		<a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+          		</div>
+                <div class="title center"> <a href="/"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+                <div class="right">
+                    <a href="#" class="link" onclick="modeEditMiPlanificacion();"><i class="icon f7-icons">compose_fill</i></a>
+                    <a href="#" class="link" onclick="addMiPlanificacion();"><i class="icon f7-icons">add_round</i></a>
+                </div>
+        	</div>
+      	</div>
+
+        <div class="page-content" style="padding:10px;padding-top:160px;">
+            <div class="card">
+                <div class="card-content card-content-padding">
+                    <h1 class="text-align-center h1" style="color:#383838;" tkey="t_my_plannings">Mis Planificaciones</h1>
+                </div>
+            </div>
+
+            <div class="separacion"></div>
+
+            <div class="block">
+                <div class="card" style="margin-top:10px;">
+                    <div class="card-content card-content-padding">
+                        <div class="list">
+                            <ul id="divMenuPlanificacionUser">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px;"></div>
+
+        </div>
+    </div>
+</template>
+
+<script>
+    return { on: { pageInit: function(e, page) { loadMenu(); } } }
+
+    function loadMenu(){
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"planificacionUser/0/0",
+            dataType: 'json',
+            success: function (data){
+                if(data.PLANIFICACION == ""){
+                    HTML = "<li> <p style=\"text-align:center;\">Añadir una Planificación en el boton <b>+</b></p> </li>";
+                }else{               
+                    $.each(data.PLANIFICACION, function(index, item) {
+                        HTML += "<li>";
+                        HTML += "<a href=\"/MAIN-NIVELES-USER/"+ item.id +"/0/\" data-view=\".view-main\" class=\"item-link item-content\" onclick=\"localStorage.setItem('LS_TXT_NIVEL_USER_ID', '"+ item.id +"'); localStorage.setItem('LS_TXT_PLANIFICACION_USER', '"+ item.titulo +"');\">";                              
+                        HTML += "<div class=\"item-inner\">";
+                        HTML += "<div class=\"item-title\">"+ item.titulo +"</div>";
+                        HTML += "</div>";
+                        HTML += "</a>";
+                        HTML += "</li>";
+                    }); 
+                }  
+                
+                $("#divMenuPlanificacionUser").html(HTML);
+            }
+        });                  
+    }
+</script>

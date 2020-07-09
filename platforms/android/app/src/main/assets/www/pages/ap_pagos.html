@@ -1,0 +1,43 @@
+<template>
+    <div class="page">
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"> <a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding-top:44px;" id="divPagos">
+            
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        on: { pageInit: function(e, page) { loadIframePagos(page.route.params.euros, page.route.params.tipo); } }
+    }
+
+    function loadIframePagos(EUROS, TIPO){
+
+        $.ajax({
+            type: "POST",
+            headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+            url: "https://aulapadel.com/crearFirma.php",
+            data: {'precio': EUROS},
+            //dataType: 'json',
+            success: function (data){
+                $.each(data.results, function(index, item) {
+                    // $("#divPagos").html('<iframe title="AulaPadel" src="https://api.paycomet.com/gateway/ifr-bankstore?MERCHANT_MERCHANTCODE='+item.MERCHANT_MERCHANTCODE+'&MERCHANT_TERMINAL='+item.MERCHANT_TERMINAL+'&OPERATION=1&LANGUAGE=ES&MERCHANT_MERCHANTSIGNATURE='+item.firma+'&MERCHANT_ORDER='+item.MERCHANT_ORDER+'&MERCHANT_AMOUNT='+EUROS+'&MERCHANT_CURRENCY=EUR&3DSECURE=1&APIUSER='+API_USER+'&URLOK=http://aulapadel.com/pago_ok.php?VALORES='+API_USER+'|'+TIPO+'&URLKO=http://aulapadel.com/pago_error.php?VALORES='+API_USER+'||'+TIPO+'" style="border: 0px solid #000000; padding: 0px; margin: 0px; width:100%; height:100%;"></iframe>'); 
+                    $("#divPagos").html('<iframe title="AulaPadel" src="https://api.paycomet.com/gateway/ifr-bankstore?MERCHANT_MERCHANTCODE='+item.MERCHANT_MERCHANTCODE+'&MERCHANT_TERMINAL='+item.MERCHANT_TERMINAL+'&OPERATION=1&LANGUAGE=ES&MERCHANT_MERCHANTSIGNATURE='+item.firma+'&MERCHANT_ORDER='+item.MERCHANT_ORDER+'&MERCHANT_AMOUNT='+EUROS+'&MERCHANT_CURRENCY=EUR&3DSECURE=1&URLOK=http://aulapadel.com/pago_ok.php?cod_user='+localStorage.getItem("LS_USER_API_KEY")+'-'+TIPO+'" style="border: 0px solid #000000; padding: 0px; margin: 0px; width:100%; height:100%;"></iframe>');
+                });
+                //$("#divPagos").html(data);
+            }
+        });       
+    }
+</script>

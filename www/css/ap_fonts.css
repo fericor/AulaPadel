@@ -1,0 +1,70 @@
+/*
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Comfortaa
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+/*default version*/
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('fonts/Comfortaa/Comfortaa-Light.ttf'); /* IE9 Compat Modes */
+    src: 
+        local('Comfortaa'),
+        url('fonts/Comfortaa/Comfortaa-Light.ttf') 
+        format('truetype');
+}
+/*bold version*/
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('fonts/Comfortaa/Comfortaa-Bold.ttf'); 
+    src: 
+        local('Comfortaa'),
+        url('fonts/Comfortaa/Comfortaa-Bold.ttf') 
+        format('truetype');
+    font-weight: bold;
+}
+/*italic version*/
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('fonts/Comfortaa/Comfortaa-Regular.ttf'); 
+    src: 
+        local('Comfortaa'),
+        url('fonts/Comfortaa/Comfortaa-Regular.ttf') 
+        format('truetype');
+    font-style: italic;
+}
+
+
+/*
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Open Sans Condensed
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+/*default version*/
+@font-face {
+    font-family: 'OpenSansCondensed';
+    src: url('fonts/OpenSansCondensed/OpenSansCondensed-Light.ttf'); /* IE9 Compat Modes */
+    src: 
+        local('OpenSansCondensed'),
+        url('fonts/OpenSansCondensed/OpenSansCondensed-Light.ttf') 
+        format('truetype');
+}
+/*bold version*/
+@font-face {
+    font-family: 'OpenSansCondensed';
+    src: url('fonts/OpenSansCondensed/OpenSansCondensed-Bold.ttf'); 
+    src: 
+        local('OpenSansCondensed'),
+        url('fonts/OpenSansCondensed/OpenSansCondensed-Bold.ttf') 
+        format('truetype');
+    font-weight: bold;
+}
+/*italic version*/
+@font-face {
+    font-family: 'OpenSansCondensed';
+    src: url('fonts/OpenSansCondensed/OpenSansCondensed-LightItalic.ttf'); 
+    src: 
+        local('OpenSansCondensed'),
+        url('fonts/OpenSansCondensed/OpenSansCondensed-LightItalic.ttf') 
+        format('truetype');
+    font-style: italic;
+}

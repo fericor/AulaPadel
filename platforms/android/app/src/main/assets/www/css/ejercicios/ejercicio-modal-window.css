@@ -1,0 +1,170 @@
+#divContentModal{display:none;}
+
+#modal_window {
+	display: none;
+	position: absolute;
+	position: fixed;
+	z-index: 1111111113;
+	margin: 0;
+	border: 3px solid #F0E68C;
+	background: #000;
+	border-radius: 5px;
+	padding: 5px;
+	overflow-y: auto;
+	max-height: 300px;
+	max-width: 98%;
+}
+
+TABLE.modal-window-table {
+	width: 100%;
+}
+
+TD.modal-window-header {
+	color: #000;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+#modal_window_bg
+{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	opacity: .5;
+	z-index: 1111111112;
+	margin: 0;
+	padding: 0;
+}
+
+#modal_window_close {
+	position: absolute;
+	right: 5px;
+	padding: 0;
+	margin: 0;
+	top: 5px;
+	cursor: pointer;
+}
+
+#modal_window_close_img {
+	width: 20px;
+	height: 20px;
+}
+DIV.modal-window-yes-panel {
+    position: relative;
+    text-align: center;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;    
+    margin-left: auto;
+    margin-right: auto;
+}
+DIV.modal-window-yes-panel DIV {
+    position: relative;
+    margin: 0;
+    padding: 0; 
+    border: 1px solid #62B01E;
+}
+DIV.modal-window-yes-panel DIV IMG{
+    border: 0;
+    margin: 0;
+    padding: 0; 
+}
+
+/********************************************
+ * FORM
+ **/
+.feedback-input {
+	color:#3c3c3c !important;
+	font-family: Helvetica, Arial, sans-serif !important;
+	font-weight:500 !important;
+	font-size: 12px !important;
+	border-radius: 0 !important;
+	line-height: 22px !important;
+	background-color: #fbfbfb !important;
+	padding: 5px !important;
+	margin-bottom: 5px !important;
+	width:100% !important;
+	-webkit-box-sizing: border-box !important;
+	-moz-box-sizing: border-box !important;
+	-ms-box-sizing: border-box !important;
+	box-sizing: border-box !important;
+	border: 2px solid rgba(0,0,0,0) !important;
+}
+
+.feedback-input:focus{
+	background: #fff;
+	box-shadow: 0;
+	border: 3px solid #3498db;
+	color: #3498db;
+	outline: none;
+	padding: 5px;
+}
+
+.focused{color:#30aed6; border:#30aed6 solid 3px;}
+
+.textarea {
+    width: 100%;
+    height: 150px;
+    line-height: 150%;
+    resize:vertical;
+}
+
+.input:hover, .textarea:hover, .input:focus, .textarea:focus {background-color:white;}
+
+#button-blue{
+	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+	float:left;
+	width: 100%;
+	border: #fbfbfb solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:24px;
+	padding:5px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	margin-top:-4px;
+	font-weight:700;
+}
+
+#button-blue:hover{
+	background-color: rgba(0,0,0,0);
+	color: #0493bd;
+}
+	
+.submit:hover {
+	color: #3498db;
+}
+	
+.ease {
+	width: 0px;
+	height: 0px;
+	background-color: #fbfbfb;
+	-webkit-transition: .3s ease;
+	-moz-transition: .3s ease;
+	-o-transition: .3s ease;
+	-ms-transition: .3s ease;
+	transition: .3s ease;
+}
+
+.submit:hover .ease{
+  width:100%;
+  background-color:white;
+}
+
+@media only screen and (max-width: 580px) {
+	#form-div{
+		left: 3%;
+		margin-right: 3%;
+		width: 88%;
+		margin-left: 0;
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+}

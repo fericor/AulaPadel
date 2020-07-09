@@ -1,0 +1,30 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.vallmarketing.ap"
+    },
+    "cordova-plugin-document-viewer": {
+      "PACKAGE_NAME": "com.vallmarketing.ap"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.vallmarketing.ap"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+      "PACKAGE_NAME": "com.vallmarketing.ap"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.vallmarketing.ap"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+<template>
+	<div class="page" data-name="licencias">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="#" class="link back">
+						<i class="f7-icons">arrow_left</i>
+					</a>
+				</div>
+				<div class="title center"> <a href="/"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+			</div>
+		</div>
+
+		<div class="page-content" style="background: #fff;">
+			<div class="block">
+				<div class="head-title">	
+					<h1 class="title-page">Aula Padel Licencias</h1>
+					<p class="subtitle">Recuerda que al pinchar en cualquiera de ambos botones 'mes o año', no se hará efectivo ningún cobro, sino que te redirigirá a la pasarela de pago para hacer efectivo el pago de la licencia elegida.</p>
+					<p class="subtitle">Si seleccionas en la opción mensual, se te cobrará el precio marcado para esos 30 días, teniendo en cuenta que esto se renueva automáticamente mes a mes.</p>
+					<p class="subtitle">La opción de licencia anual tendrá una validez de 365 días y dicha renovación también será automática y se hará efectiva al finalizar el periodo anual.</p>
+					<p class="subtitle">En caso de querer cancelar las licencias, bien mensual o bien anual, tienes que dirigirte a la página de perfil de tu usuario y dar a cancelar (<a href="/AP-CANCELACION/" data-view=".view-main" class="item-link panel-close"></a>Política de cancelación</a>)</p>
+					<span class="subtitle">Para más información visitanos en <a href="http://aulapadel.com" target="_blank">aulapadel.com</a></span>
+				</div>
+
+				<br>
+
+				<div class="row resizable" id="sliderLicencias">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+    return {
+        on: { pageInit: function(e, page) { loadMenu(page.route.params.idc); } }
+    }
+
+    function loadMenu(ID){
+		var HTML        = "";
+		var HTML1       = "";
+        var API_USER    = localStorage.getItem("LS_USER_API_KEY");
+        var ID_LICENCIA = localStorage.getItem("LS_USER_TIPO");
+	
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"licencias",
+            dataType: 'json',
+            success: function (data){
+                $.each(data.licencias, function(index, item) {
+					if(item.titulo == "Platinum"){
+						HTML1 = "<div class=\"plan-select\"><a href=\"/AP-CONTACTO/TXT/\" data-view=\".view-main\" class=\"item-link\">Contactar</a></div>";
+					}else{
+						HTML1  = "<p class=\"plan-title1\"> El pago anual tiene un descuento del "+item.descuento+" % </p>";
+						HTML1 += "<div class=\"row\">";
+						HTML1 += "<div class=\"col\">";
+						HTML1 += "<div class=\"plan-select\"><a href=\"/PAGOS-LICENCIA/"+item.precio_tpv+"/"+item.titulo+"/\" data-view=\".view-main\" class=\"item-link\">Mensual</a></div>";
+						HTML1 += "</div>";
+						HTML1 += "<div class=\"col\">";
+						HTML1 += "<div class=\"plan-select\"><a href=\"/PAGOS-LICENCIA/"+item.precio_tpv_ano+"/"+item.titulo+"/\" data-view=\".view-main\" class=\"item-link\">Anual</a></div>";
+						HTML1 += "</div>";
+						HTML1 += "</div>";
+					}
+
+					if(item.id > ID_LICENCIA){
+						HTML += "<div class=\"col-100\" style=\"padding-left:0px;padding-right:0px;\">";
+						HTML += "<div class=\"ap_price\">";
+						HTML += "<div class=\"plan "+item.titulo+"\">";						
+						HTML += "<h3 class=\"plan-title\"> "+item.titulo+" </h3>";
+
+						HTML += "<div class=\"row\">";
+
+						HTML += "<div class=\"col\">";
+						HTML += "<div class=\"plan-cost\"><span class=\"plan-price\">€"+item.precio_mes+"</span><span class=\"plan-type\">/ Mes</span></div>";
+						HTML += "</div>";
+
+						HTML += "<div class=\"col\">";
+						HTML += "<div class=\"plan-cost\"><span class=\"plan-price\">€"+item.precio_ano+"</span><span class=\"plan-type\">/ Año</span></div>";
+						HTML += "</div>";
+
+						HTML += "</div>";
+
+						HTML += item.descripcion;
+						HTML += HTML1;
+						HTML += "</div>";
+						HTML += "</div>";
+						HTML += "</div>";
+						HTML += "<hr>";
+					}
+                });   
+                
+				$("#sliderLicencias").html(HTML);
+            }
+        });                  
+    }
+</script>

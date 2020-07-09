@@ -1,0 +1,70 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_3">
+            <div class="row">
+                <div class="col text-align-center">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"><a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a></div>
+            </div>
+        </div>
+        
+        <div class="block" style="margin-top: 100px;">
+            <br>
+            <h1 id="txtTitulo" class="text-align-center h1">NIVEL BASE</h1>
+
+            <div class="card" style="margin-top:40px;">
+                <div class="card-content card-content-padding">
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <a href="/MAIN-SEMANAS-USER/{{$route.params.idc}}/1/" data-view=".view-main" class="item-link item-content" onclick="localStorage.setItem('LS_TXT_TRIMESTRE_USER', '1');">                                    
+                                    <div class="item-media"><i class="f7-icons">layers</i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title">1º Trimestre</div>
+                                    </div>                                   
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/MAIN-SEMANAS-USER/{{$route.params.idc}}/2/" data-view=".view-main" class="item-link item-content" onclick="localStorage.setItem('LS_TXT_TRIMESTRE_USER', '2');">
+                                    <div class="item-media"><i class="f7-icons">layers</i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title">2º Trimestre</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/MAIN-SEMANAS-USER/{{$route.params.idc}}/3/" data-view=".view-main" class="item-link item-content" onclick="localStorage.setItem('LS_TXT_TRIMESTRE_USER', '3');">
+                                    <div class="item-media"><i class="f7-icons">layers</i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title">3º Trimestre</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+<script>
+    return { 
+        on: { 
+            pageInit: function(e, page) {                  
+                $("#txtTitulo").html("NIVEL "+localStorage.getItem("LS_TXT_NIVEL_USER"));
+            } 
+        }
+    }
+</script>

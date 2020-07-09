@@ -1,0 +1,88 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_2">
+            <div class="row">
+                <div class="col text-align-center" style="margin-top:75px;">
+                    <h1 id="txtTitulo" class="text-align-center h1">Menores Basico</h1>
+                    <h2 id="txtTrimestre" class="text-align-center h2">1º TRIMESTRE</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"> <a href="/" class="link"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+                <div class="right">
+                    <a href="#" data-id="0" id="btnEditMiCLoud" class="link" onclick="modeEditMiCloud(this, 'SEMANAS');"><i class="icon f7-icons">compose_fill</i></a>
+                    <a href="#" data-id="0" id="btnAddMiCLoud" class="link" onclick="addMiCloud(this, 'SEMANAS');"><i class="icon f7-icons">add_round</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding-top:150px;">
+            <div class="card">
+                <div class="card-content card-content-padding">
+                    <div class="list media-list sortable">
+                        <ul id="divMenuPlanificacionNivelesTrimestresSemanasUser">
+                            
+                        </ul>
+                    </div>
+
+                    <div class="separacion"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        on: { pageInit: function(e, page) { loadMenu(page.route.params.idc, page.route.params.trimestre); } }
+    }
+
+    function loadMenu(ID, TRIMESTRES){
+        $("#txtTitulo").html( localStorage.getItem("LS_TXT_PLANIFICACION_USER")+" "+localStorage.getItem("LS_TXT_NIVEL_USER") );
+        $("#txtTrimestre").html( localStorage.getItem("LS_TXT_TRIMESTRE_USER")+" TRIMESTRE");
+
+        $("#btnEditMiCLoud").attr("data-id", localStorage.getItem("LS_TXT_NIVEL_USER_ID"));
+        $("#btnAddMiCLoud").attr("data-id", localStorage.getItem("LS_TXT_NIVEL_USER_ID"));
+
+        var API_USER = localStorage.getItem("LS_USER_API_KEY");
+        var HTML = "";
+        $.ajax({
+            type: "GET",
+            headers: {"Authorization": API_USER},
+            url: URL_SERVER+"planificacionUser/"+ID+"/"+TRIMESTRES,
+            dataType: 'json',
+            //data: { email: 0 },
+            success: function (data){
+                if(data.PLANIFICACION == ""){
+                    HTML += "<li style=\"text-align:center;\"> <p>Sin informacion, para añadir una planificación haz click en el boton (<b>+</b>)</p> </li>";
+                }else{
+                    $.each(data.PLANIFICACION, function(index, item) {
+                        HTML += "<li onclick=\"localStorage.setItem('LS_TXT_SEMANA_USER', '"+ item.id_semana +"');\">";
+                        HTML += '<a href="/MAIN-SEMANAS-ITEMS-USER/'+item.id+'/'+item.id_semana+'/" data-view=".view-main" class=" item-content">';
+                        HTML += '<div class="item-media"><i class="f7-icons">bookmark</i></div>';
+                        HTML += '<div class="item-inner">';
+                        HTML += '<div class="item-title-row">';
+                        HTML += '<div class="item-title">SEMANA '+ item.id_semana +'</div>';
+                        HTML += '</div>';
+                        HTML += '<div class="item-text">'+ item.descripcion +'</div>';
+                        HTML += '</div>';
+                        HTML += '</a>';
+                        HTML += '<div class="sortable-handler"></div>';
+                        HTML += '</li>';
+                    });   
+                }
+                
+                $("#divMenuPlanificacionNivelesTrimestresSemanasUser").html(HTML);
+            }
+        });                  
+    }
+</script>

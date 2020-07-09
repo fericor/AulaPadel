@@ -1,0 +1,326 @@
+<template>
+    <div class="page" data-name="profiler">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="f7-icons">arrow_left</i>
+                    </a>
+                </div>
+                <div class="title center"> <a href="/"><img src="images/logos/logo-h.png" class="ap_logo-h"></a> </div>
+            </div>
+        </div>
+
+        <div class="ap_fondo">
+            <div class="row">
+                <div class="col text-align-center">
+                    <div class="ap_logo-v"> <img src="images/logos/logo-v.png"> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar tabbar">
+            <div class="toolbar-inner">
+                <a href="#tab-1" class="tab-link tab-link-active">
+                    <i class="icon f7-icons">person_round</i>
+                    <span class="tabbar-label" tkey="t_profiler">Perfil</span>
+                </a>
+                <a href="#tab-2" class="tab-link">
+                    <i class="icon f7-icons ios-only">person</i>
+                    <span class="tabbar-label" tkey="t_password">Contraseña</span>
+                </a>
+                <a href="#tab-3" class="tab-link">
+                    <i class="icon f7-icons ios-only">person_crop_rectangle</i>
+                    <span class="tabbar-label" tkey="t_password">Avatar</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="page-content" style="background: #fff;">            
+            <div class="row">
+                <div class="col">
+                    <div class="block elevation-1" style="margin-top: 150px;">
+                        <div class="user-profile">
+                            <img class="divUserImgInfo avatar" src="images/avatar.png" onerror="this.src='images/logos/logo512.jpg'" alt="Usuario" />
+                            <div class="divUserNameInfo username">Anonimo</div>
+                            <div class="divUserBioInfo bio">no ha iniciado sesión</div>
+                            <div class="divUserDescriptionInfo description"> sin licencia </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="tabs tabs-routable" style="margin-top: -45px;">
+                <div class="tab page-content tab-active" id="tab-1">
+                    <div class="block block-strong row" style="margin: 10px;"><div class="col"><a id="btnPerfilSave" class="button button-big button-fill color-blue" href="#">Guardar</a></div></div>
+                    
+                    <form class="list" id="frmUserProfiler">
+                        <input type="hidden" name="txtIdPerfil" id="txtIdPerfil" value="{{IDPERFIL}}" />
+                        <ul>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_name">Nombre</div>
+                                    <div class="item-input-wrap">
+                                    <input type="text" name="txtNameUser" id="txtNameUser" placeholder="Nombre" tkey="t_name" value="{{NOMBRE}}">
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_lastname">Apellidos</div>
+                                    <div class="item-input-wrap">
+                                    <input type="text" name="txtLastNameUser" id="txtLastNameUserProfiler" placeholder="Apellidos" tkey="t_lastname" value="{{APELLIDOS}}">
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_phone">Teléfono</div>
+                                    <div class="item-input-wrap">
+                                    <input type="text" name="txtPhoneUser" id="txtPhoneUser" placeholder="Teléfono" tkey="t_phone" value="{{TELEFONO}}">
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_email">E-mail</div>
+                                    <div class="item-input-wrap">
+                                    <input type="email" name="txtEmailUser" id="txtEmailUser" placeholder="E-mail" tkey="t_email" value="{{EMAIL}}" disabled>
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <br>
+                    <div class="block block-strong row">
+                        <div class="col">
+                            <a class="button button-big button-fill color-red" tkey="t_delete" id="btnDeletePerfil" data-id="{{IDPERFIL}}" onclick="deletePerfil(this);">CANCELAR SUSCRIPCION</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab page-content" id="tab-2">
+                    <form class="list" id="frmUserProfilerPass">
+                        <input type="hidden" name="txtIdPerfil" id="txtIdPerfilPass" value="{{IDPERFIL}}" />
+                        <ul>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_name">Nueva Contraseña</div>
+                                    <div class="item-input-wrap">
+                                    <input type="password" name="txtPassUser1" id="txtPassUser1" placeholder="************">
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" tkey="t_name">Repita Contraseña</div>
+                                    <div class="item-input-wrap">
+                                    <input type="password" name="txtPassUser2" id="txtPassUser2" placeholder="************">
+                                    </div>
+                                </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <br>
+                    <div class="block block-strong row">
+                        <div class="col"><a id="btnPerfilSavePass" class="button button-big button-fill color-blue" href="#">Cambiar Contraseña</a></div>
+                    </div>
+                </div>
+                <div class="tab page-content" id="tab-3">
+                    <div class="row">
+                        <div class="col-100">
+                            <div class="block elevation-1" style="margin-top: 20px;">
+                                <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+                                    <div id="image_preview"><img id="previewing" src="noimage.png" onerror="this.src='images/logos/logo512.jpg'" style="height:150px;"/></div>
+                                    <div id="selectImage">
+                                    <label>Seleccionar una imagen</label><br/>
+                                    <input type="file" name="txtImageAlumno" id="file" required />
+                                    <input type="submit" value="Cambiar" class="submit" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-100">
+                            <p id='loading' >Cargando...</p>
+                            <div id="message"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</template>
+
+<script>
+    return { 
+        data: function () {
+            return { IDPERFIL: localStorage.getItem('LS_USER_ID'), NOMBRE: localStorage.getItem('LS_USER_NAME'), APELLIDOS: localStorage.getItem('LS_USER_LASTNAME'), TELEFONO: localStorage.getItem('LS_USER_PHONE'), EMAIL:localStorage.getItem('LS_USER_EMAIL') }
+        },
+        on: { 
+            pageInit: function(e, page) { 
+                $('#loading').show();
+                var ID_PERFIL = $("#txtIdPerfil").val();
+
+                $("#uploadimage").on('submit',(function(e) {
+                    e.preventDefault();
+                    $("#message").empty();
+                    $('#loading').show();
+                    $.ajax({
+                        type: "POST",             // Type of request to be send, called as method
+                        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                        headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+                        url: URL_SERVER+"profilerAvatar"+ "/"+ID_PERFIL,
+                        contentType: false,       // The content type used when sending data to the server.
+                        cache: false,             // To unable request pages to be cached
+                        processData:false,        // To send DOMDocument or non processed data file it is set to false
+                        dataType: 'json',
+                        success: function(data)   // A function to be called if request succeeds
+                        {
+                            $('#loading').hide();
+                            $("#message").html(data);
+                            app.dialog.alert(data.message );
+                            app.preloader.hide();
+                        }
+                    });
+                }));
+
+                $("#file").change(function() {
+                    $("#message").empty(); // To remove the previous error message
+                    var file = this.files[0];
+                    var imagefile = file.type;
+                    var match= ["image/jpeg","image/png","image/jpg"];
+                    if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]))){
+                        $('#previewing').attr('src','noimage.png');
+                        $("#message").html("<p id='error'>Please Select A valid Image File</p>"+"<h4>Note</h4>"+"<span id='error_message'>Only jpeg, jpg and png Images type allowed</span>");
+                        return false;
+                    }else{
+                        var reader = new FileReader();
+                        reader.onload = imageIsLoaded;
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                });
+
+
+
+                /* --------------------- */
+                setInfoUser(localStorage.getItem('LS_USER_AUTENTIFICADO')); 
+                
+                Dom7('#btnPerfilSave').on('click', function(){
+                    var formData = app.form.convertToData('#frmUserProfiler');
+                    $.ajax({
+                        type: "PUT",
+                        headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+                        url: URL_SERVER+"profiler"+ "/"+ID_PERFIL,
+                        dataType: 'json',
+                        data:formData,
+                        statusCode: { 
+                            401: function (error) { 
+                                app.loginScreen.open('.ap-login-screen');
+                            } 
+                        },
+                        beforeSend: function(){
+                            app.preloader.show();
+                        },
+                        success: function (data){    
+                            a = _projectTexts.get();
+
+                            if(data.error){
+                                app.dialog.alert(a.data.message );
+                                app.preloader.hide();
+                            }else{
+                                a = _projectTexts.get();
+                                app.dialog.alert(a.t_msg_edit_profiler);
+                                app.preloader.hide(); 
+                                
+                                localStorage.setItem('LS_USER_ID', $("#txtIdPerfil").val());
+                                localStorage.setItem('LS_USER_NAME', $("#txtNameUser").val());
+                                localStorage.setItem('LS_USER_LASTNAME', $("#txtLastNameUserProfiler").val());
+                                localStorage.setItem('LS_USER_PHONE', $("#txtPhoneUser").val());
+                                localStorage.setItem('LS_USER_EMAIL', $("#txtEmailUser").val())
+                            }
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            a = _projectTexts.get();
+                            app.dialog.alert("Code: "+xhr.status+"<br>"+a.t_error_server);
+                            app.preloader.hide();
+                        }
+                    });
+                });
+
+
+                Dom7('#btnPerfilSavePass').on('click', function(){
+                    var formData = app.form.convertToData('#frmUserProfilerPass');
+
+                    var ID_PERFIL = $("#txtIdPerfil").val();
+
+                    $.ajax({
+                        type: "PUT",
+                        headers: {"Authorization": localStorage.getItem("LS_USER_API_KEY")},
+                        url: URL_SERVER+"profilerPass"+ "/"+ID_PERFIL,
+                        dataType: 'json',
+                        data:formData,
+                        statusCode: { 
+                            401: function (error) { 
+                                app.loginScreen.open('.ap-login-screen');
+                            } 
+                        },
+                        beforeSend: function(){
+                            app.preloader.show();
+                        },
+                        success: function (data){    
+                            a = _projectTexts.get();
+
+                            if(data.error){
+                                app.dialog.alert(a.data.message );
+                                app.preloader.hide();
+                            }else{
+                                ap_logout();
+                                //ap_on_tour();
+                                app.loginScreen.open('.ap-login-screen');
+
+                                a = _projectTexts.get();
+                                app.dialog.alert(a.t_msg_edit_profiler);
+                                app.preloader.hide();                     
+                            }
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            a = _projectTexts.get();
+                            app.dialog.alert("Code: "+xhr.status+"<br>"+a.t_error_server);
+                            app.preloader.hide();
+                        }
+                    });
+                });
+            } 
+        }
+    }
+
+    function ap_logout(){
+        setInfoUser("false");
+        localStorage.clear();
+        localStorage.setItem("LS_ONOFF_WELCOME", true);
+        mainView.router.navigate('/'); 
+        
+        return false;
+    }
+    function ap_on_tour(){ app.welcomescreen.open(); }
+    function imageIsLoaded(e) {
+        $("#file").css("color","green");
+        $('#image_preview').css("display", "block");
+        $('#previewing').attr('src', e.target.result);
+        $('#previewing').attr('width', '250px');
+        $('#previewing').attr('height', '230px');
+        $('.divUserImgInfo').attr('src', e.target.result);
+    };
+</script>

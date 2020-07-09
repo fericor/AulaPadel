@@ -1,0 +1,97 @@
+<template>
+    <div class="page">
+        <div class="ap_fondo_3">
+            <div class="row">
+                <div class="col text-align-center">
+                    <div class="ap_logo-login-v"> <img src="images/logos/logo-v.png"> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content" style="padding-top:200px;padding-left: 5%;padding-right: 5%;">
+            <div class="card" style="padding-bottom:25px;">
+                <div class="card-content card-content-padding">
+                    <form id="my-login-screen">
+                        <div class="list">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Nombre completo</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="name" placeholder="Nombre Apellidos">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Email</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="username" placeholder="example@mail.com">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Teléfono</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="telefono" placeholder="000000000">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                      <div class="item-title item-label">Contraseña</div>
+                                      <div class="item-input-wrap">
+                                        <input type="password" name="password" placeholder="********">
+                                        <span class="input-clear-button"></span>
+                                      </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div style="text-align:center;top: -40px;position: relative;">
+                <a href="#" class="tutorial-signup-btn" @click="sendRegister">Regístrate</a>
+                <!-- <a href="/" class="tutorial-facebook-btn">Facebook</a> -->
+                <div class="block-footer">¡Ya tengo una cuenta! <a href="/AP-LOGIN/" data-view=".view-main" class="item-link">Entrar</a></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    return {
+
+        methods: {
+            sendRegister: function () {
+                var self = this;
+                //self.$app.dialog.alert('Hello World');
+
+                var name     = $('#my-login-screen [name="name"]').val();
+                var username = $('#my-login-screen [name="username"]').val();
+                var password = $('#my-login-screen [name="password"]').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: URL_SERVER+"register",
+                    dataType: 'json',
+                    data: { name: name, email: username, password: password },
+                    success: function (data){
+                        /*localStorage.setItem('LS_USER_API_KEY', data.apiKey);
+                        localStorage.setItem('LS_USER_AUTENTIFICADO', true);
+                        localStorage.setItem('LS_USER_NAME', data.name);
+                        localStorage.setItem('LS_USER_EMAIL', data.email);
+                        self.$app.router.navigate('/');*/
+                        self.$app.dialog.alert('Username: ' +data.message);                           
+                    }
+                });                 
+            }
+        }
+    }
+</script>
