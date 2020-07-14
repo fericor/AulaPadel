@@ -166,50 +166,63 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 
     // FORM REGISTER :: Registrar un nuevo usuario
+    var POLITICA = app.toggle.create({
+        el: '.politicaToggle',
+        on: {
+            change: function () {
+                console.log('')
+            }
+        }
+    });
+    var PUBLICIDAD = app.toggle.create({
+        el: '.publicidadToggle',
+        on: {
+            change: function () {
+                console.log('')
+            }
+        }
+    });
     Dom7('#ap-register-screen .tutorial-signup-btn').on('click', function () {
         var name     = $('#ap-register-screen [name="name"]').val();
         var username = Dom7('#ap-register-screen [name="username"]').val();
         var password = Dom7('#ap-register-screen [name="password"]').val();
         var phone    = Dom7('#ap-register-screen [name="phone"]').val();
-
+        var PUBLICIDAD01 = 0;
+        
         app.preloader.show();
 
-        if( (username == "") || (password == "") || (name == "") || (phone == "") ){
-            app.preloader.hide();
-            app.dialog.alert("<b>ERROR:</b> <i>Los tados no pueden estar vacios.</i>");
-        }else{
-            $.ajax({
-                type: "POST",
-                url: URL_SERVER+"register",
-                dataType: 'json',
-                data: { name: name, email: username, phone: phone, password: password },
-                success: function (data){
-                    if(data.error){
-                        app.preloader.hide();
-                        app.dialog.alert(data.message);
-                    }else{
-                        ap_login_to_register(username, password);
-
-                        /*setTimeout(function () {
-                            Dom7('#ap-register-screen [name="name"]').val("");
-                            Dom7('#ap-register-screen [name="username"]').val("");
-                            Dom7('#ap-register-screen [name="password"]').val("");
-
-                            app.welcomescreen.close();
-                            app.loginScreen.close('.ap-register-screen');
-                            app.preloader.hide();
-                            $app.router.navigate('/');
-                            
-
-                        }, 3000);  */
-                    }                                          
-                },
-                error: function (request, status, error) {
-                    app.preloader.hide();
-                    app.dialog.alert(request.responseJSON.message);
+        if (POLITICA.checked) {
+            if( (username == "") || (password == "") || (name == "") || (phone == "") ){
+                app.preloader.hide();
+                app.dialog.alert("<b>ERROR:</b> <i>Los datos no pueden estar vacios.</i>");
+            }else{
+                if (PUBLICIDAD.checked) {
+                    PUBLICIDAD01 = 1;
                 }
-            }); 
-        }  
+                $.ajax({
+                    type: "POST",
+                    url: URL_SERVER+"register",
+                    dataType: 'json',
+                    data: { name: name, email: username, phone: phone, password: password, publicidad: PUBLICIDAD01},
+                    success: function (data){
+                        if(data.error){
+                            app.preloader.hide();
+                            app.dialog.alert(data.message);
+                        }else{
+                            ap_login_to_register(username, password);
+
+                        }                                          
+                    },
+                    error: function (request, status, error) {
+                        app.preloader.hide();
+                        app.dialog.alert(request.responseJSON.message);
+                    }
+                }); 
+            } 
+        }else{
+            app.preloader.hide();
+            app.dialog.alert("<b>ERROR:</b> <i>Tienes que aceptar la Política de Privacidad.</i>");
+        } 
     });
 
     // FORM RECUPERAR :: Recupera la contraseña
